@@ -1,0 +1,10 @@
+#backend
+backend/functions/node_modules/
+firebase-debug.log
+firebase.json
+.firebaserc
+.eslintrc.json
+
+#android-app
+
+#hardware
