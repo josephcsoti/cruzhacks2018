@@ -2,10 +2,9 @@ language: node_js
 node_js:
   - "node"
 script:
-  - echo "Printing Tree..."
-  - ls -L 5
   - echo "Entering /backend/..."
   - cd backend
+  - ls
   - echo "Deploying..."
 install:
   - npm install -g firebase-tools
