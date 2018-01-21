@@ -1,8 +1,8 @@
-#define SSID "WiFi!"
-#define PASS "password12345"
-#define SERVER_ADDRESS "http://dostuff.com"
+#define SSID "Joe"
+#define PASS "cruzhacks2018"
+#define SERVER_ADDRESS "http://us-central1-cruzhacks2018-17b9d.cloudfunctions.net"
 #define SERVER_PORT 80
-#define SERVER_PATH "/lockStatus"
+#define SERVER_PATH "/BikerackActivity?rackID=lockuplookup&slot=1&details=TAMPER"
 #define DEBUG true
 
 // port definitions
@@ -91,19 +91,19 @@ void sendData(String toSend, String ip, uint16_t port) {
 // keys is an array of keys to be passed in the payload of the get request
 // values is an array of values that correspond to the keys
 void sendGET(String ip, uint16_t port, int switchNum, int value) {
-  String path = SERVER_PATH "?";
-  String num = "";
-  num += switchNum;
-  // convert state to string type
-  String state = "LOW";
-  if (value == HIGH) {
-    state = "HIGH";
-  }
-  // add components to path
-  path += "switch=";
-  path += num;
-  path += "&state=";
-  path += state;
+  String path = SERVER_PATH;
+//  String num = "";
+//  num += switchNum;
+//  // convert state to string type
+//  String state = "LOW";
+//  if (value == HIGH) {
+//    state = "HIGH";
+//  }
+//  // add components to path
+//  path += "switch=";
+//  path += num;
+//  path += "&state=";
+//  path += state;
   String request = "GET " + path + " HTTP/1.1\r\n";
   sendData(request, SERVER_ADDRESS, SERVER_PORT);
 }
