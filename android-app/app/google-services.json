@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "416655118985",
+    "firebase_url": "https://cruzhacks2018-17b9d.firebaseio.com",
+    "project_id": "cruzhacks2018-17b9d",
+    "storage_bucket": "cruzhacks2018-17b9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416655118985:android:ba4a32c565647940",
+        "android_client_info": {
+          "package_name": "xyz.tracestudios.lockuplookup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416655118985-5h6pm1s2fafa8ashpbutevq6o2fue8he.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.tracestudios.lockuplookup",
+            "certificate_hash": "714164bcf16ad66511c2d71135dc1de7905921fa"
+          }
+        },
+        {
+          "client_id": "416655118985-1e5k7hgaplpghq4pifrkqfd55f2h91rj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-VQOY5-K5UjFQtLEbkIPSUxglIg7GS-Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416655118985-1e5k7hgaplpghq4pifrkqfd55f2h91rj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
