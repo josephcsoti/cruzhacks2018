@@ -10,6 +10,7 @@ Work done:
   -Software-
 
 Materials: 
+
     * Adruino Mega 2560
     
     * ESP 8266-01 (WiFi chip)
