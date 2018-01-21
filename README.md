@@ -11,8 +11,12 @@ Work done:
 
 Materials: 
     * Adruino Mega 2560
-    * ESP 8266 (WiFi chip)
+    
+    * ESP 8266-01 (WiFi chip)
+    
     * ALCOswitch
+    
     * Male to male/ male to female wires
+    
     * Green LED 
     
