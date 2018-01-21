@@ -1,7 +1,7 @@
 # cruzhacks2018
 The repo containing all our things for CruzHacks 2018!
 
-Product Description: A cheap, safe, and easy to use bike rack that allows the user to view their locked bite through an app and have a secure personalized pin to unlock their bike. 
+Product Description: Lockup Lookup is a cheap, safe, and easy way for users to secure their parked bikes at a bike rack. Users can easily use Lockup Lookup to secure their bike, and remotely check-in to ensure their bike hasn't been moved. Deployers of Lockup Lookup receive the frequency of usage for a specific bike rack, and can track anonymized user data that can map out common routes taken by bikers between bike racks.
 
 Work done: 
 
