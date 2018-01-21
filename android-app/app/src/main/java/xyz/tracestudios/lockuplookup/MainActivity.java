@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             // /posts/$postid simultaneously
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("slot", false);
+        childUpdates.put(slot, false);
 
         myRef.child(name).updateChildren(childUpdates);
     }
