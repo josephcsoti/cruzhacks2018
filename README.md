@@ -8,3 +8,11 @@ Work done:
   -Hardware- Using the Arduino micro controller as a base, we desined a simple switch to be activated when the bike is in place and send that data through a WiFi chip. Providing the WiFi chip with a cellular signal will allow the user to view this info using the app.   
 
   -Software-
+
+Materials: 
+    * Adruino Mega 2560
+    * ESP 8266 (WiFi chip)
+    * ALCOswitch
+    * Male to male/ male to female wires
+    * Green LED 
+    
