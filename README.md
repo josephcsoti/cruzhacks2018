@@ -5,7 +5,7 @@ Product Description: A cheap, safe, and easy to use bike rack that allows the us
 
 Work done: 
 
-  -Hardware- Using the Arduino micro controller as a base, we desined a simple switch to be activated when the bike is in place and send that data through a WiFi chip. Providing the WiFi chip with a cellular signal will allow the user to view this info using the app.   
+  -Hardware- Using the Arduino micro controller as a base, we designed a simple switch to be activated when the bike is in place and send that data through a WiFi chip. Providing the WiFi chip with a cellular signal will allow the user to view this info using the app.   
 
   -Software-
 
