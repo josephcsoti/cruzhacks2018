@@ -39,15 +39,13 @@ exports.UnlockRequestQueue = functions.database.ref('/request_queue/unlock/{requ
   const slot = data.slot + 0;
   const password = data.password;
 
-  const p1 = this.database.ref('/lobby_admin/'+lobbyID).once('value').val().toString()
-
   console.log("UNLOCK REQ: ", requestID, rackID, slot, password)
 
   const p1 = database.ref('/bikerack_secure/' + rackID + '/' + slot).remove()
-                  .then(console.log("SECURED REMOVED"));
+              .then(console.log("SECURED REMOVED"));
     
   const p2 = database.ref('/lease/' + rackID + '/' + slot).remove()
-                  .then(console.log("LEASED VOID"));
+              .then(console.log("LEASED VOID"));
       
   return Promise.all()[p1, p2];
   

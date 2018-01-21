@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/4.9.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <!-- <script defer src="/__/firebase/4.9.0/firebase-auth.js"></script> -->
+    <script defer src="/__/firebase/4.9.0/firebase-database.js"></script>
+    <!-- <script defer src="/__/firebase/4.9.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/4.9.0/firebase-storage.js"></script> -->
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+      .rack {
+        background: rgb(255, 255, 255) !important;
+        padding: 16px;
+        width: 300px;
+        margin: 0 auto;
+      }
+      .slot {
+        background: rgb(235, 235, 235);
+        display: flex;
+        justify-content: space-around;
+      }
+      .fake {
+        background: #fff;
+      }
+      button{
+        margin: 8px;
+      }
+      .logo{
+        margin: 32px 0;
+        text-align: center;
+      }
+      .center, .bttn_container {
+        text-align: center;
+      }
+      .bttn_container {
+        padding-bottom: 64px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="page">
+    <div class="logo">
+        <img src="logo.png" alt="logo">
+    </div>
+
+    <p class="center">BIKE RACK SIMULATOR</p>
+    <div class="bttn_container"><button id="bttn_gen">Create new rack</button></div>
+    <div class="rack center" id="rack1">
+      <h1 id="rack_name">NAME</h1>
+      <div class="slot fake">
+          <p>Slot</p>
+          <p>Locked</p>
+          <p>PIN</p>
+          <p>Lock</p>
+      </div>
+      <div class="slot">
+        <p>A</p>
+        <p id="text_a"></p>
+        <p id="pin_a"></p>
+        <button id="bttn_a">Lock</button>
+      </div>
+      <div class="slot">
+        <p>B</p>
+        <p id="text_b"></p>
+        <p id="pin_b"></p>
+        <button id="bttn_b">Lock</button>
+      </div>
+      <div class="slot">
+        <p>C</p>
+        <p id="text_c"></p>
+        <p id="pin_c"></p>
+        <button id="bttn_c">Lock</button>
+      </div>
+      <div class="slot">
+        <p>D</p>
+        <p id="text_d"></p>
+        <p id="pin_d"></p>
+        <button id="bttn_d">Lock</button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+
+        //Init app
+        try {let app = firebase.app();} catch (e) {console.error(e);}
+
+        //Glob vars
+        var def = '0f3a';
+        var pre = 'Baskin-';
+        var bikerackID = pre + def;
+
+        generateRack();
+
+        //WATCHERS
+        //states
+        var states = firebase.database().ref('bikerack_states/' + bikerackID);
+        states.on('value', function(snapshot) {
+          updateRackState(snapshot.val());
+        });
+        //security
+        var pins = firebase.database().ref('bikerack_secure/' + bikerackID);
+        pins.on('value', function(snapshot) {
+          updateRackPIN(snapshot.val());
+        });
+
+        //BTTN Listeners
+        document.getElementById("bttn_gen").addEventListener("click", generateRack);
+        document.getElementById("bttn_a").addEventListener("click", lockSlotA);
+        document.getElementById("bttn_b").addEventListener("click", lockSlotB);
+        document.getElementById("bttn_c").addEventListener("click", lockSlotC);
+        document.getElementById("bttn_d").addEventListener("click", lockSlotD);
+
+
+        //Listener helpers
+        function lockSlotA() {fireLock('a', getPIN());}
+        function lockSlotB() {fireLock('b', getPIN());}
+        function lockSlotC() {fireLock('c', getPIN());}
+        function lockSlotD() {fireLock('d', getPIN());}
+
+        //Create new rack
+        function generateRack(){
+          def = getPIN(); //to lazy to create another rnd
+          bikerackID = pre+def;
+          fireInit(bikerackID);
+          fireUpdate(bikerackID);
+          document.getElementById('rack_name').innerHTML = bikerackID;
+        }
+
+        //Change client data
+        function updateRackState(data){
+          console.log(data);
+          document.getElementById('text_a').innerHTML = data['a'] === undefined ? false : data['a'];
+          document.getElementById('text_b').innerHTML = data['b'] === undefined ? false : data['b'];
+          document.getElementById('text_c').innerHTML = data['c'] === undefined ? false : data['c'];
+          document.getElementById('text_d').innerHTML = data['d'] === undefined ? false : data['d'];
+
+          document.getElementById("bttn_a").disabled = data['a'] === undefined ? false : data['a'];
+          document.getElementById("bttn_b").disabled = data['b'] === undefined ? false : data['b'];
+          document.getElementById("bttn_c").disabled = data['c'] === undefined ? false : data['c'];
+          document.getElementById("bttn_d").disabled = data['d'] === undefined ? false : data['d'];
+
+        }
+        function updateRackPIN(data){
+          console.log(data);
+          document.getElementById('pin_a').innerHTML = (data['a'] === undefined ||  !data['a'])? "NONE" : data['a'];
+          document.getElementById('pin_b').innerHTML = (data['b'] === undefined ||  !data['b'])?"NONE" : data['b'];
+          document.getElementById('pin_c').innerHTML = (data['c'] === undefined ||  !data['c'])? "NONE" : data['c'];
+          document.getElementById('pin_d').innerHTML = (data['d'] === undefined ||  !data['d'])?"NONE" : data['d'];
+        }
+
+
+        //RND
+        function getPIN(){
+          let res = '';
+          for(let i=0; i<4; i++)
+            res += getNumber() + '';
+          return res;
+        }
+        function getNumber(){return Math.floor(9 * Math.random());}
+
+        //Firebase pulls/pushes
+        //locks
+        function fireLock(slot, pass) {
+
+          var updates = {};
+
+          updates['/bikerack_states/' + bikerackID + '/' + slot] = true;
+          updates['/bikerack_secure/' + bikerackID + '/' + slot] = pass;
+
+          return firebase.database().ref().update(updates);
+        } 
+        //creates
+        function fireInit(rackID){
+
+          var updates = {};
+
+          var states = {a: false, b: false, c:false, d:false}
+          var pins = {a: false, b: false, c:false, d:false}
+
+          updates['/bikerack_states/' + bikerackID] = states;
+          updates['/bikerack_secure/' + bikerackID] = pins;
+
+          return firebase.database().ref().update(updates);
+        }
+        //pulls value
+        function fireUpdate(bikerackID){
+          const p1 = firebase.database().ref('/bikerack_states/' + bikerackID).once('value').then(data => {updateRackState(data)});
+          const p2 = firebase.database().ref('/bikerack_secure/' + bikerackID).once('value').then(data => {updateRackPIN(data)});
+          return Promise.all([p1,p2]);
+        }
+ 
+      });
+
+    </script>
+  </div>
+  </body>
+</html>
